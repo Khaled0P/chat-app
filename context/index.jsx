@@ -4,12 +4,12 @@ export const Context = createContext();
 
 export const ContextProvider = ({ ...props }) => {
   const [userName, setUserName] = useState('');
-  const [secrete, setSecrete] = useState('');
+  const [password, setPassword] = useState('');
   const value = {
     userName,
     setUserName,
-    secrete,
-    setSecrete,
+    password,
+    setPassword,
   };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;
