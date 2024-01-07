@@ -31,6 +31,8 @@ export default function Chats() {
   function handleSignOut() {
     setUserName('');
     setPassword('');
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
   }
 
   if (!showChat) return <div />;

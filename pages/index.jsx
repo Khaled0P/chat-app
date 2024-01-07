@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Context } from '../context';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -6,6 +6,18 @@ import axios from 'axios';
 export default function Auth() {
   const router = useRouter();
   const { userName, password, setUserName, setPassword } = useContext(Context);
+
+  // check local storage for user auth
+  useEffect(() => {
+    const storedUserName = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('password');
+
+    if (storedUserName && storedPassword) {
+      setUserName(storedUserName);
+      setPassword(storedPassword);
+      router.push('/chats');
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,11 +31,19 @@ export default function Auth() {
         },
         { headers: { 'PRIVATE-KEY': process.env.NEXT_PUBLIC_CHAT_API_KEY } }
       )
-      .then((r) => router.push('/chats'))
+      .then((r) => {
+        //save auth in local storage
+        localStorage.setItem('username', userName);
+        localStorage.setItem('password', password);
+        console.log(localStorage.getItem('username'));
+        console.log(localStorage.getItem('password'));
+        router.push('/chats');
+      })
       .catch((error) => {
         console.error('Error during authentication:', error);
       });
   }
+
   return (
     <div className="background">
       <div className="auth-container">
