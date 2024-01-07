@@ -12,7 +12,7 @@ const MessageFormSocial = dynamic(() =>
 );
 
 export default function Chats() {
-  const { userName, password } = useContext(Context);
+  const { userName, setUserName, password, setPassword } = useContext(Context);
   const [showChat, setShowChat] = useState(false);
   const router = useRouter();
 
@@ -28,10 +28,18 @@ export default function Chats() {
     }
   }, [userName, password]);
 
+  function handleSignOut() {
+    setUserName('');
+    setPassword('');
+  }
+
   if (!showChat) return <div />;
-  console.log(ChatEngine);
+
   return (
     <div className="background">
+      <button type="general" className="signout" onClick={handleSignOut}>
+        Sign Out
+      </button>
       <div className="shadow">
         <ChatEngine
           height="calc(100vh - 200px)"
