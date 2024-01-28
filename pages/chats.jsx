@@ -45,7 +45,7 @@ export default function Chats() {
       <div className="shadow">
         <ChatEngine
           height="calc(100vh - 200px)"
-          projectID="c074de43-420f-4250-9e1e-f562957ff5b3"
+          projectID="b40ed151-27de-4aec-a0e1-d721ea4a5ce5"
           userName={userName}
           userSecret={password}
           renderNewMessageForm={() => <MessageFormSocial />}
